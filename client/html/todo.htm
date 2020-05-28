@@ -3,14 +3,105 @@
 
 <head>
     <title>TV2Z todo list</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../css/todo.css" />
 </head>
 
 <body>
-    
+    <!--
+        Login confirmation:
+            name
+            username (must be unique)
+            password (encrypted)
+                login button
+    -->
+
+
+    <!-- 
+        Create item:
+            Title
+            Description (Handle long descriptions)
+            Tag (list of tags, textbox, autocomplete, enter)
+                Create button
+        
+        - tag class:
+            create
+    -->
+    <form id="add_todo_form">
+        <label for="todo_title_input">Title</label>
+        <input type="text" id="todo_title_input" placeholder="type here..."/>
+        
+        <label for="todo_description_input">Description</label>
+        <input type="text" id="todo_description_input" placeholder="type here..."/>
+
+        <label for="todo_title_input">Tags</label>
+        <input type="text" id="todo_tags_input" placeholder="type here..."/>
+
+        <input type="submit" id="add_todo_submit" value="submit" />
+    </form>
+
+    <ul id="item_list">
+        <p>Todo list</p>
+        <!-- <li class="todo_item">
+            <p class="todo_title">This is a title</p>
+            <p class="todo_description">this is a description</p>
+            <div class="todo_tags">
+                <div class="todo_tag">tag 1</div>
+                <div class="todo_tag">longer tag 1</div>
+                <div class="todo_tag">tag 2</div>
+                <div class="todo_tag">tag 3</div>
+                <div class="todo_tag">longer tag 2</div>
+                <div class="todo_tag">tag 4</div>
+                <div class="todo_tag">longer tag 3</div>
+            </div>
+        </li>
+        
+        <li class="todo_item">
+            <p class="todo_title">This is a title</p>
+            <p class="todo_description">this is a description</p>
+            <div class="todo_tags">
+                <div class="todo_tag">tag 1</div>
+                <div class="todo_tag">longer tag 1</div>
+                <div class="todo_tag">tag 2</div>
+                <div class="todo_tag">tag 3</div>
+                <div class="todo_tag">longer tag 2</div>
+                <div class="todo_tag">tag 4</div>
+                <div class="todo_tag">longer tag 3</div>
+            </div>
+        </li>
+        
+        <li class="todo_item">
+            <p class="todo_title">This is a title</p>
+            <p class="todo_description">this is a description</p>
+            <div class="todo_tags">
+                <div class="todo_tag">tag 1</div>
+                <div class="todo_tag">longer tag 1</div>
+                <div class="todo_tag">tag 2</div>
+                <div class="todo_tag">tag 3</div>
+                <div class="todo_tag">longer tag 2</div>
+                <div class="todo_tag">tag 4</div>
+                <div class="todo_tag">longer tag 3</div>
+            </div>
+        </li> -->
+    </ul>
+
+    <!-- 
+        Edit item:
+            Select item to edit
+            create editable fields (values)
+    -->
+
+    <!--
+        Search tags:
+            Sear through item list in tag list
+    -->
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="../js/index.js"></script>
+    <script src="../js/todo.js"></script>
     <!-- <script src="https://kit.fontawesome.com/eacb8fc761.js" crossorigin="anonymous"></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
