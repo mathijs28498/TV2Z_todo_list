@@ -212,7 +212,6 @@ function getTodosByTag(tag) {
         for (let j = 0; j < todo.tagList.length; j++) {
             todoTag = todo.tagList[j];
             if (todoTag.title.indexOf(tag) != -1) {
-                console.table(todoTag);
                 res.push(todo);
                 break;
             }
