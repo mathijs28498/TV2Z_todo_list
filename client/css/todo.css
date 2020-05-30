@@ -10,7 +10,6 @@ span, button, .todo_tag {
 
 body {
     background-color: lightblue;
-    color: white;
     padding-top: 30px;
     padding-left: 30px;
     padding-right: 30px;
@@ -40,6 +39,7 @@ body {
 
 #item_list_container {
     display: inline-block;
+    color: white;
     background-color: rgb(0, 222, 230);
     width: 300px;
     padding: 10px;
@@ -57,6 +57,7 @@ body {
 }
 
 .todo_item {
+    width: calc(100% - 30px);
     background-color: rgb(0, 174, 179);
     list-style-type: none;
     padding: 5px 15px 15px 15px;
@@ -67,14 +68,17 @@ body {
     border-radius: 5px;
 }
 
+#admin_only {
+    color: red;
+}
+
 #log_out {
-    border-radius: 2px;
-    border-width: 1px;
     margin-bottom: 10px;
 }
 
 #log_in_form * {
     display: block;
+    color: black;
 }
 
 #log_in_form label {
@@ -85,11 +89,15 @@ body {
     margin-bottom: 10px;
 }
 
-#log_in.is_logged_in {
+#container.is_logged_in #log_in {
     display: none;
 }
 
-#todo_app:not(.is_logged_in) {
+#save_load_buttons {
+    margin-bottom: 10px;
+}
+
+#container:not(.is_logged_in) #todo_app {
     display: none;
 }
 
@@ -135,7 +143,16 @@ div .todo_tag:not(:last-child) {
     margin-top: 4px;
 }
 
+.todo_edit_field::placeholder {
+    color: white;
+}
+
 .todo_edit_field {
+    background-color: unset;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: white;
+
     width: calc(100% - 10px);
 }
 

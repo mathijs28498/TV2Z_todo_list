@@ -1,9 +1,8 @@
-// Ideas:
-//  - Edit mode/view mode?
+// YET TODO: 
+//  - add error handling input
+//  - format code better
 
-// Make tag class
-//  - Only allow numbers, letters, spaces (seperate by commas)
-//  - max length tag
+
 class Tag {
     constructor(title) {
         this.title = title;
@@ -19,15 +18,9 @@ function getTagHTML(title, isRemovable) {
         + '"><span class="tag_title">' + title + '</span>'
         + (isRemovable ? '<span class="remove_tag">x</span>' : '') + '</div>'
 }
-
-// Make list of all tags
-//  - Search through all tags
-let allTags = [];
-
-// Make todoitem list
 let todoItems = [];
 
-// Make TodoItem class (Unique id?)
+
 class TodoItem {
     constructor(title, description, tagList) {
         this.title = title;
@@ -48,7 +41,6 @@ class TodoItem {
         });
 
         resHTML += '</div>';
-
         resHTML += '</li>';
 
         return resHTML;
@@ -61,22 +53,49 @@ class TodoItem {
     }
 }
 
+function jsonToTodoItem(jsonObject) {
+    let tagList = [];
+    let tagListJSON = jsonObject.tagList;
+    for (let i = 0; i < tagListJSON.length; i++) {
+        tagList.push(new Tag(tagListJSON[i].title));
+    }
+    return new TodoItem(jsonObject.title, jsonObject.description, tagList);
+}
 
 $('#log_out').click(function () {
-    $('#log_in').removeClass('is_logged_in');
+    saveTodos();
 
+    $(this).parent().parent().removeClass('is_logged_in');
+
+    $('.todo_title_input').val('');
+    $('.todo_description_input').val('');
+    $('.todo_tags_input').val('');
+    $('.todo_tags_input_container').html('');
+    $('#todo_search').val('');
     $('#item_list').html('');
-    itemList = [];
-    showSearch = false;
 
-    $(this).parent().removeClass('is_logged_in');
+    todoItems = [];
+    showSearch = false;
 });
+
+let isAdmin = true;
 
 let logInDetails = [
     ['user', 'pass'],
     ['admin', 'admin'],
-    ['Please', 'let me in']
+    ['please', 'let me in'],
+    ['mathijs', 'frank']
 ];
+
+$(document).ready(function () {
+    if (isAdmin) {
+        let adminOnly = $('#admin_only');
+        adminOnly.append('<h1>ADMIN ONLY --- Highly sensitive data --- DO NOT SHARE!</h1>');
+        logInDetails.forEach(el => {
+            adminOnly.append('<p>Username: ' + el[0] + '<br/> Password: ' + el[1] + '</p>');
+        });
+    }
+})
 
 $('#log_in_form').on('submit', function (e) {
     e.preventDefault();
@@ -92,8 +111,10 @@ $('#log_in_form').on('submit', function (e) {
     });
 
     if (canLogIn) {
-        $(this).parent().addClass('is_logged_in');
-        $('#todo_app').addClass('is_logged_in');
+        $(this).parent().parent().addClass('is_logged_in');
+        $('#todo_app').data('user', user.val());
+        $('#welcome_username').html(user.val());
+        loadTodos();
     }
 
     user.val('');
@@ -158,11 +179,15 @@ $('#todo_search').keyup(function () {
         showSearch = false;
 
         itemList.html('');
-        todoItems.forEach(el => {
-            itemList.append(el.getHTML());
-        });
+        appendTodoItems();
     }
 })
+
+function appendTodoItems() {
+    todoItems.forEach(el => {
+        $('#item_list').append(el.getHTML());
+    });
+}
 
 function addTag(element, value, tagDiv, event) {
     if (value !== '') {
@@ -252,39 +277,62 @@ document$.on('click', '.edit_todo_item', function () {
         let newTitle = title.find('input').val();
         let newDescription = description.find('input').val();
 
-        if (newTitle !== '' && newDescription !== '') {
-            todoHTML.removeClass('editing_todo');
-            $(this).html('edit');
+        todoHTML.removeClass('editing_todo');
+        $(this).html('edit');
 
-            let index = getTodoIndex(title.find("input").data("oldvalue"), description.find("input").data("oldvalue"));
-            let todo = todoItems[index];
-            todo.title = newTitle;
-            todo.description = newDescription;
-            todo.tagList = [];
+        let index = getTodoIndex(title.find("input").data("oldvalue"), description.find("input").data("oldvalue"));
+        let todo = todoItems[index];
+        todo.tagList = [];
 
+        if (newTitle === '') {
+            title.html(title.find("input").data("oldvalue"));
+        } else {
             title.html(newTitle);
-            description.html(newDescription);
-
-            addTagsDiv.html('');
-
-            tagDiv.find('.tag_title').each(function () {
-                let tagTitle = $(this).html();
-
-                todo.tagList.push(new Tag(tagTitle));
-
-                $(this).parent().remove();
-                tagDiv.append(getTagHTML(tagTitle, false));
-            });
+            todo.title = newTitle;
         }
+
+        if (newDescription === '') {
+            description.html(description.find("input").data("oldvalue"));
+        } else {
+            description.html(newDescription);
+            todo.description = newDescription;
+        }
+
+        addTagsDiv.html('');
+
+        tagDiv.find('.tag_title').each(function () {
+            let tagTitle = $(this).html();
+
+            todo.tagList.push(new Tag(tagTitle));
+
+            $(this).parent().remove();
+            tagDiv.append(getTagHTML(tagTitle, false));
+        });
     }
 });
 
-// Handle editing todo items
-//  - Edit title/description
-//  - Remove/add tags
 
-// Handle searching (Bootstrap?)
 
-// Handle login/sign in
 
-// Handle storing lists
+    // Got cross site scripting warning with XMLHttpRequest
+
+$('#load_todos').click(loadTodos);
+
+function loadTodos() {
+    let user = $('#todo_app').data('user');
+    let todosJSON = JSON.parse(window.localStorage.getItem(user));
+    if (todosJSON !== null) {
+        todoItems = [];
+        for (let i = 0; i < todosJSON.length; i++) {
+            todoItems.push(jsonToTodoItem(todosJSON[i]));
+        }
+        appendTodoItems();
+    }
+}
+
+$('#save_todos').click(saveTodos);
+
+function saveTodos() {
+    let user = $('#todo_app').data('user');
+    window.localStorage.setItem(user, JSON.stringify(todoItems));
+}

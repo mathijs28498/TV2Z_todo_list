@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
     <title>TV2Z todo list</title>
 
     <link rel="stylesheet" href="../css/todo.css" />
@@ -9,75 +11,52 @@
 
 <body>
 
-    <div id="log_in">
-        <form id="log_in_form">
-            <label for="username">Username</label>
-            <input id="username" type="text" placeholder="Type here..." />
-            <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Type here..." />
-            <input type="submit" value="Log in" />
-        </form>
-    </div>
+    <div id="container">
+        <div id="log_in">
+            <form id="log_in_form">
+                <label for="username">Username</label>
+                <input id="username" type="text" placeholder="Type here..." />
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Type here..." />
+                <input type="submit" value="Log in" />
+            </form>
 
-    <div id="todo_app">
-        <button id="log_out">Log out</button>
-        <form id="add_todo_form">
-            <label for="todo_title_input">Title</label>
-            <input type="text" class="todo_title_input" autocomplete="off" placeholder="type here..." />
+            <div id="admin_only"></div>
+        </div>
 
-            <label for="todo_description_input">Description</label>
-            <input type="textfield" class="todo_description_input" autocomplete="off" placeholder="type here..." />
+        <div id="todo_app" data-user="mathijs">
+            <input id="log_out" type="button" value="Save and log out">
+            <h3>Welcome, <span id="welcome_username"></span></h3>
+            <form id="add_todo_form">
+                <label for="todo_title_input">Title</label>
+                <input type="text" class="todo_title_input" autocomplete="off" placeholder="type here..." />
 
-            <label for="todo_title_input">Tags (seperate with commas)</label>
-            <input type="text" class="todo_tags_input" autocomplete="off" placeholder="type here..." />
-            <div class="todo_tags_input_container">
-                <!-- <div class="todo_tag todo_in_tag_input">
-                <span class="tag_title ">tag</span><span class="remove_tag">x</span>
-            </div> -->
+                <label for="todo_description_input">Description</label>
+                <input type="textfield" class="todo_description_input" autocomplete="off" placeholder="type here..." />
+
+                <label for="todo_title_input">Tags (seperate with commas)</label>
+                <input type="text" class="todo_tags_input" autocomplete="off" placeholder="type here..." />
+                <div class="todo_tags_input_container"></div>
+
+                <input type="submit" value="Add todo" />
+            </form>
+
+            <div id="save_load_buttons">
+                <input id="save_todos" type="button" value="Save todos" />
+                <input id="load_todos" type="button" value="Load todos" />
             </div>
+            
+            <div id="item_list_container">
+                <p id="item_list_title">Todo list</p>
+                <input id="todo_search" type="input" placeholder="Search... (tag)" />
+                <ul id="item_list"></ul>
+            </div>
+            <ul>
 
-
-            <input type="submit" value="Add todo" />
-        </form>
-
-        <div id="item_list_container">
-            <p id="item_list_title">Todo list</p>
-            <input id="todo_search" type="input" placeholder="Search... (tag)" />
-            <ul id="item_list">
 
             </ul>
-
         </div>
-        <ul>
-            <!-- <li class="todo_item">
-                <p class="todo_item_edit_buttons"><span>edit</span><span>remove</span></p>
-                <p class="todo_title">This is a title</p>
-                <p class="todo_description">this is a description</p>
-                <div class="todo_tags">
-                    <div class="todo_tag">tag 1</div>
-                    <div class="todo_tag">longer tag 1</div>
-                    <div class="todo_tag">tag 2</div>
-                    <div class="todo_tag">tag 3</div>
-                    <div class="todo_tag">longer tag 2</div>
-                    <div class="todo_tag">tag 4</div>
-                    <div class="todo_tag">longer tag 3</div>
-                </div>
-            </li> -->
-
-        
-        </ul>
     </div>
-
-    <!-- 
-        Edit item:
-            Select item to edit
-            create editable fields (values)
-    -->
-
-    <!--
-        Search tags:
-            Sear through item list in tag list
-    -->
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
