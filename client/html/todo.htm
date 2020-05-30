@@ -4,89 +4,69 @@
 <head>
     <title>TV2Z todo list</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-
     <link rel="stylesheet" href="../css/todo.css" />
 </head>
 
 <body>
-    <!--
-        Login confirmation:
-            name
-            username (must be unique)
-            password (encrypted)
-                login button
-    -->
 
+    <div id="log_in">
+        <form id="log_in_form">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Type here..." />
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Type here..." />
+            <input type="submit" value="Log in" />
+        </form>
+    </div>
 
-    <!-- 
-        Create item:
-            Title
-            Description (Handle long descriptions)
-            Tag (list of tags, textbox, autocomplete, enter)
-                Create button
-        
-        - tag class:
-            create
-    -->
-    <form id="add_todo_form">
-        <label for="todo_title_input">Title</label>
-        <input type="text" id="todo_title_input" placeholder="type here..."/>
-        
-        <label for="todo_description_input">Description</label>
-        <input type="text" id="todo_description_input" placeholder="type here..."/>
+    <div id="todo_app">
+        <button id="log_out">Log out</button>
+        <form id="add_todo_form">
+            <label for="todo_title_input">Title</label>
+            <input type="text" class="todo_title_input" autocomplete="off" placeholder="type here..." />
 
-        <label for="todo_title_input">Tags</label>
-        <input type="text" id="todo_tags_input" placeholder="type here..."/>
+            <label for="todo_description_input">Description</label>
+            <input type="textfield" class="todo_description_input" autocomplete="off" placeholder="type here..." />
 
-        <input type="submit" id="add_todo_submit" value="submit" />
-    </form>
-
-    <ul id="item_list">
-        <p>Todo list</p>
-        <!-- <li class="todo_item">
-            <p class="todo_title">This is a title</p>
-            <p class="todo_description">this is a description</p>
-            <div class="todo_tags">
-                <div class="todo_tag">tag 1</div>
-                <div class="todo_tag">longer tag 1</div>
-                <div class="todo_tag">tag 2</div>
-                <div class="todo_tag">tag 3</div>
-                <div class="todo_tag">longer tag 2</div>
-                <div class="todo_tag">tag 4</div>
-                <div class="todo_tag">longer tag 3</div>
+            <label for="todo_title_input">Tags (seperate with commas)</label>
+            <input type="text" class="todo_tags_input" autocomplete="off" placeholder="type here..." />
+            <div class="todo_tags_input_container">
+                <!-- <div class="todo_tag todo_in_tag_input">
+                <span class="tag_title ">tag</span><span class="remove_tag">x</span>
+            </div> -->
             </div>
-        </li>
+
+
+            <input type="submit" value="Add todo" />
+        </form>
+
+        <div id="item_list_container">
+            <p id="item_list_title">Todo list</p>
+            <input id="todo_search" type="input" placeholder="Search... (tag)" />
+            <ul id="item_list">
+
+            </ul>
+
+        </div>
+        <ul>
+            <!-- <li class="todo_item">
+                <p class="todo_item_edit_buttons"><span>edit</span><span>remove</span></p>
+                <p class="todo_title">This is a title</p>
+                <p class="todo_description">this is a description</p>
+                <div class="todo_tags">
+                    <div class="todo_tag">tag 1</div>
+                    <div class="todo_tag">longer tag 1</div>
+                    <div class="todo_tag">tag 2</div>
+                    <div class="todo_tag">tag 3</div>
+                    <div class="todo_tag">longer tag 2</div>
+                    <div class="todo_tag">tag 4</div>
+                    <div class="todo_tag">longer tag 3</div>
+                </div>
+            </li> -->
+
         
-        <li class="todo_item">
-            <p class="todo_title">This is a title</p>
-            <p class="todo_description">this is a description</p>
-            <div class="todo_tags">
-                <div class="todo_tag">tag 1</div>
-                <div class="todo_tag">longer tag 1</div>
-                <div class="todo_tag">tag 2</div>
-                <div class="todo_tag">tag 3</div>
-                <div class="todo_tag">longer tag 2</div>
-                <div class="todo_tag">tag 4</div>
-                <div class="todo_tag">longer tag 3</div>
-            </div>
-        </li>
-        
-        <li class="todo_item">
-            <p class="todo_title">This is a title</p>
-            <p class="todo_description">this is a description</p>
-            <div class="todo_tags">
-                <div class="todo_tag">tag 1</div>
-                <div class="todo_tag">longer tag 1</div>
-                <div class="todo_tag">tag 2</div>
-                <div class="todo_tag">tag 3</div>
-                <div class="todo_tag">longer tag 2</div>
-                <div class="todo_tag">tag 4</div>
-                <div class="todo_tag">longer tag 3</div>
-            </div>
-        </li> -->
-    </ul>
+        </ul>
+    </div>
 
     <!-- 
         Edit item:
@@ -102,10 +82,6 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="../js/todo.js"></script>
-    <!-- <script src="https://kit.fontawesome.com/eacb8fc761.js" crossorigin="anonymous"></script> -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
