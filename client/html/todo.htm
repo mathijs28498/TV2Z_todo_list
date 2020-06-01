@@ -11,10 +11,16 @@
 
 <body>
 
+    <!-- General container for all content -->
     <div id="container">
+        
+        <!-- Log in field -->
         <div id="log_in">
             <form id="log_in_form">
+
+                <!-- Error message if the username and password aren't correct -->
                 <p id="invalid_log_in">Invalid username/password</p>
+
                 <label for="username">Username</label>
                 <input id="username" type="text" placeholder="Type here..." />
                 <label for="password">Password</label>
@@ -22,12 +28,16 @@
                 <input type="submit" value="Log in" />
             </form>
 
+            <!-- Div that contains the user log in data -->
             <div id="admin_only"></div>
         </div>
 
+        <!-- The actual todo application -->
         <div id="todo_app" data-user="mathijs">
             <input id="log_out" type="button" value="Save and log out">
             <h3>Welcome, <span id="welcome_username"></span></h3>
+
+            <!-- Form to add todos -->
             <form id="add_todo_form">
                 <label for="todo_title_input">Title</label>
                 <input type="text" id="todo_title_input" autocomplete="off" placeholder="type here..." />
@@ -42,22 +52,21 @@
                 <input type="submit" value="Add todo" />
             </form>
 
+            <!-- Error message if the todo already exists -->
             <p id="double_todo">This todo already exists.<br/>Please change title or description</p>
 
+            <!-- Buttons to save and load the todos of the current user -->
             <div id="save_load_buttons">
                 <input id="save_todos" type="button" value="Save todos" />
                 <input id="load_todos" type="button" value="Load todos" />
             </div>
             
+            <!-- Container for all the todos with search functionality -->
             <div id="item_list_container">
                 <p id="item_list_title">Todo list</p>
                 <input id="todo_search" type="input" placeholder="Search... (tag)" />
                 <ul id="item_list"></ul>
             </div>
-            <ul>
-
-
-            </ul>
         </div>
     </div>
 
