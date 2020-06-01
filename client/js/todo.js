@@ -1,6 +1,3 @@
-// 0: Unspecified error. on IE
-// use window.localstorage (no XMLHttpRequest cuz of CORS, did work on IE)
-
 // GLOBAL VARIABLES
 
 const isAdmin = true;
@@ -413,56 +410,9 @@ $(document).on('click', '.edit_todo_item', function () {
 
     if (!todoHTML.hasClass('editing_todo')) {
         changeTodoToEdit($(this), todoHTML, title, description, addTagsDiv, tagDiv);
-        // todoHTML.addClass('editing_todo');
-        // $(this).html("update");
-
-        // title.html('<input data-oldvalue="' + title.html() + '" class="todo_edit_field" type="input" value="' + title.html() + '" placeholder="Type here..." />');
-        // description.html('<input data-oldvalue="' + description.html() + '" class="todo_edit_field" type="input" value="' + description.html() + '" placeholder="Type here..." />');
-
-        // addTagsDiv.html('<input class="todo_edit_field" type="input" placeholder="Type here... (Add tag with a comma)" />');
-
-        // tagDiv.find('.tag_title').each(function () {
-        //     let tagTitle = $(this).html();
-        //     $(this).parent().remove();
-        //     tagDiv.append(getTagHTML(tagTitle, true));
-        // });
 
     } else {
         changeTodoFromEdit($(this), todoHTML, title, description, addTagsDiv, tagDiv);
-        //     let newTitle = title.find('input').val();
-        //     let newDescription = description.find('input').val();
-
-        //     todoHTML.removeClass('editing_todo');
-        //     $(this).html('edit');
-
-        //     let index = getTodoIndex(title.find("input").data("oldvalue"), description.find("input").data("oldvalue"));
-        //     let todo = todoItemArray[index];
-        //     todo.tagList = [];
-
-        //     if (newTitle === '') {
-        //         title.html(title.find("input").data("oldvalue"));
-        //     } else {
-        //         title.html(newTitle);
-        //         todo.title = newTitle;
-        //     }
-
-        //     if (newDescription === '') {
-        //         description.html(description.find("input").data("oldvalue"));
-        //     } else {
-        //         description.html(newDescription);
-        //         todo.description = newDescription;
-        //     }
-
-        //     addTagsDiv.html('');
-
-        //     tagDiv.find('.tag_title').each(function () {
-        //         let tagTitle = $(this).html();
-
-        //         todo.tagList.push(new Tag(tagTitle));
-
-        //         $(this).parent().remove();
-        //         tagDiv.append(getTagHTML(tagTitle, false));
-        //     });
     }
 });
 
