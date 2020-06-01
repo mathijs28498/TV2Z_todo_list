@@ -14,6 +14,7 @@
     <div id="container">
         <div id="log_in">
             <form id="log_in_form">
+                <p id="invalid_log_in">Invalid username/password</p>
                 <label for="username">Username</label>
                 <input id="username" type="text" placeholder="Type here..." />
                 <label for="password">Password</label>
@@ -29,10 +30,10 @@
             <h3>Welcome, <span id="welcome_username"></span></h3>
             <form id="add_todo_form">
                 <label for="todo_title_input">Title</label>
-                <input type="text" class="todo_title_input" autocomplete="off" placeholder="type here..." />
+                <input type="text" id="todo_title_input" autocomplete="off" placeholder="type here..." />
 
                 <label for="todo_description_input">Description</label>
-                <input type="textfield" class="todo_description_input" autocomplete="off" placeholder="type here..." />
+                <input type="textfield" id="todo_description_input" autocomplete="off" placeholder="type here..." />
 
                 <label for="todo_title_input">Tags (seperate with commas)</label>
                 <input type="text" class="todo_tags_input" autocomplete="off" placeholder="type here..." />
@@ -40,6 +41,8 @@
 
                 <input type="submit" value="Add todo" />
             </form>
+
+            <p id="double_todo">This todo already exists.<br/>Please change title or description</p>
 
             <div id="save_load_buttons">
                 <input id="save_todos" type="button" value="Save todos" />

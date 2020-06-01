@@ -1,3 +1,6 @@
+// 0: Unspecified error. on IE
+// use window.localstorage (no XMLHttpRequest cuz of CORS, did work on IE)
+
 // YET TODO: 
 //  - add error handling input
 //  - format code better
@@ -67,12 +70,20 @@ $('#log_out').click(function () {
 
     $(this).parent().parent().removeClass('is_logged_in');
 
-    $('.todo_title_input').val('');
-    $('.todo_description_input').val('');
+    let todoTitle = $('#todo_title_input')
+    todoTitle.val('');
+    todoTitle.removeClass('empty');
+
+
+    let todoDescription = $('#todo_description_input')
+    todoDescription.val('');
+    todoDescription.removeClass('empty');
+
     $('.todo_tags_input').val('');
     $('.todo_tags_input_container').html('');
     $('#todo_search').val('');
     $('#item_list').html('');
+    $('#double_todo').removeClass('active');
 
     todoItems = [];
     showSearch = false;
@@ -110,11 +121,16 @@ $('#log_in_form').on('submit', function (e) {
         }
     });
 
+    let invalidLogIn = $('#invalid_log_in');
+
     if (canLogIn) {
+        invalidLogIn.removeClass('active');
         $(this).parent().parent().addClass('is_logged_in');
         $('#todo_app').data('user', user.val());
         $('#welcome_username').html(user.val());
         loadTodos();
+    } else if (!invalidLogIn.hasClass('active')) {
+        invalidLogIn.addClass('active');
     }
 
     user.val('');
@@ -127,29 +143,53 @@ $('#add_todo_form').on('submit', function (e) {
 
     thisJ = $(this);
 
-    let todoTitle = $(this).find('.todo_title_input');
-    let todoDescription = $(this).find('.todo_description_input');
+    let todoTitle = $(this).find('#todo_title_input');
+    let todoDescription = $(this).find('#todo_description_input');
+    let todoTitleVal = todoTitle.val();
+    let todoDescriptionVal = todoDescription.val();
 
-    if (todoTitle.val() !== "" && todoDescription.val() !== "") {
+    if (todoTitleVal !== "" && todoDescriptionVal !== "") {
+        todoTitle.removeClass('empty');
+        todoDescription.removeClass('empty');
+        let exists = false;
+        for (let i = 0; i < todoItems.length; i++) {
+            const el = todoItems[i];
+            if (todoTitleVal === el.title && todoDescriptionVal === el.description) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
 
-        let todoTagsArray = [];
-        $(this).find('.tag_title').each(function () {
-            todoTagsArray.push(new Tag($(this).html()));
-        });
+            let todoTagsArray = [];
+            $(this).find('.tag_title').each(function () {
+                todoTagsArray.push(new Tag($(this).html()));
+            });
 
-        let newTodo = new TodoItem(
-            todoTitle.val(),
-            todoDescription.val(),
-            todoTagsArray
-        );
+            let newTodo = new TodoItem(
+                todoTitleVal,
+                todoDescriptionVal,
+                todoTagsArray
+            );
 
-        todoTitle.val('');
-        todoDescription.val('');
-        $(this).find('.todo_tags_input').val('');
-        $(this).find('.todo_tags_input_container').html('');
+            todoTitle.val('');
+            todoDescription.val('');
+            $(this).find('.todo_tags_input').val('');
+            $(this).find('.todo_tags_input_container').html('');
+            $('#double_todo').removeClass('active');
 
-        newTodo.addToItemList();
-        todoItems.push(newTodo);
+            newTodo.addToItemList();
+            todoItems.push(newTodo);
+        } else {
+            if (!$('#double_todo').hasClass('active')) 
+                $('#double_todo').addClass('active');
+        }
+    } else {
+        if (todoTitleVal === "" && !todoTitle.hasClass('empty')) 
+            todoTitle.addClass('empty');
+
+        if (todoDescriptionVal === "" && !todoDescription.hasClass('empty')) 
+            todoDescription.addClass('empty');
     }
 });
 
@@ -265,7 +305,7 @@ document$.on('click', '.edit_todo_item', function () {
         title.html('<input data-oldvalue="' + title.html() + '" class="todo_edit_field" type="input" value="' + title.html() + '" placeholder="Type here..." />');
         description.html('<input data-oldvalue="' + description.html() + '" class="todo_edit_field" type="input" value="' + description.html() + '" placeholder="Type here..." />');
 
-        addTagsDiv.html('<input class="todo_edit_field" type="input" placeholder="Type here..." />');
+        addTagsDiv.html('<input class="todo_edit_field" type="input" placeholder="Type here... (Add todo with a comma)" />');
 
         tagDiv.find('.tag_title').each(function () {
             let tagTitle = $(this).html();
@@ -314,7 +354,7 @@ document$.on('click', '.edit_todo_item', function () {
 
 
 
-    // Got cross site scripting warning with XMLHttpRequest
+// Got cross site scripting warning with XMLHttpRequest
 
 $('#load_todos').click(loadTodos);
 

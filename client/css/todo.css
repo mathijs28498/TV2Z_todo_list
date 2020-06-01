@@ -2,6 +2,8 @@
     Colours based on TV2Z website
 */
 
+
+
 span, button, .todo_tag {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
@@ -187,4 +189,16 @@ div .todo_tag:not(:last-child) {
 
 .todo_item_edit_buttons span:hover {
     color: gray;
+}
+
+#invalid_log_in, #double_todo {
+    color: red;
+}
+
+#invalid_log_in:not(.active), #double_todo:not(.active) {
+    display: none;
+}
+
+input.empty {
+    border-color: red;
 }
